@@ -1,83 +1,141 @@
 const {
+
 EmbedBuilder
+
 }=require("discord.js");
+
+
+const serverList =
+require("../utils/serverlist");
+
+
 
 
 
 module.exports={
 
+
 name:"help",
+
 
 
 async execute(message){
 
 
 
+
+
+const servers =
+
+Object.keys(serverList)
+
+.join(", ");
+
+
+
+
+
+
+
 const embed =
+
 new EmbedBuilder()
+
+
+
 
 
 .setAuthor({
 
 name:
+
 "💗 PETUAH BISU 💗",
 
+
 iconURL:
+
 message.client.user.displayAvatarURL()
 
 })
 
 
+
+
+
 .setColor(
+
 "#ff77cc"
+
 )
+
+
+
+
 
 
 .setDescription(
+
 `
-**Prefix:** \`.\`
+
+**Prefix :** \`.\`
 
 
-🌐 **SERVER**
+🌐 **CFX COMMAND**
+
 \`.server <cfx>\`
-Cek informasi server
+↳ Info server
 
 
-👥 **PLAYERS**
 \`.players <cfx>\`
-List player online
+↳ List semua player
 
 
-🔎 **FIND**
 \`.find <cfx> <nama>\`
-Cari menggunakan CFX
+↳ Cari player
 
 
-💗 **SEARCH**
-\`.search <server> <nama>\`
-Cari server tersimpan
 
-👥 **ALL PLAYER**
+💗 **SAVED SERVER**
+
 \`.allplayer <server>\`
-List player online
+↳ List semua player
 
-Example:
-\`\`\`
-.search gprp hsk
-\`\`\`
+
+\`.search <server> <nama>\`
+↳ Cari player
+
+
+
+📌 **Server List**
+
+\`${servers}\`
+
+
 `
+
 )
+
+
+
+
 
 
 .setFooter({
 
 text:
-"💗 PETUAH BISU SYSTEM 💗"
+
+"PETUAH BISU FINDER 💗"
 
 })
 
 
+
+
+
 .setTimestamp();
+
+
+
 
 
 
@@ -89,6 +147,10 @@ embeds:[embed]
 });
 
 
+
+
 }
+
+
 
 }
