@@ -12,25 +12,10 @@ getServer
 }=require("../utils/fivem");
 
 
+// AMBIL SERVER LIST
 
-
-
-const serverList={
-
-
-gprp:{
-
-name:
-"Garuda Prime Roleplay",
-
-cfx:
-"vgaqm5"
-
-}
-
-
-};
-
+const serverList =
+require("../utils/serverlist");
 
 
 
@@ -48,27 +33,31 @@ async execute(message,args){
 
 
 
-
 const alias =
 args[0];
 
 
 
 const keyword =
-args.slice(1)
+args
+.slice(1)
 .join(" ")
 .toLowerCase();
 
 
 
 
+
 if(!alias || !keyword){
+
 
 return message.reply(
 "💗 Gunakan `.search <server> <nama>`"
 );
 
+
 }
+
 
 
 
@@ -82,40 +71,59 @@ alias.toLowerCase()
 
 
 
+
 if(!target){
 
+
+
+let list =
+Object.keys(serverList)
+.join(", ");
+
+
+
+
 return message.reply(
-"💔 Server tidak tersedia"
+
+`
+💔 Server tidak ditemukan
+
+Server tersedia:
+\`${list}\`
+`
+
 );
 
+
 }
+
+
+
+
 
 
 
 
 const server =
 await getServer(
-target.cfx
+
+target.server
+
 );
+
 
 
 
 
 if(!server){
 
+
 return message.reply(
 "💔 Server offline"
 );
 
+
 }
-
-
-
-
-
-
-const players =
-server.players || [];
 
 
 
@@ -123,11 +131,13 @@ server.players || [];
 
 
 const result =
-players.filter(p=>
+server.players.filter(player=>
 
-p.name
+
+player.name
 .toLowerCase()
 .includes(keyword)
+
 
 );
 
@@ -138,11 +148,16 @@ p.name
 
 if(result.length===0){
 
+
 return message.reply(
-`💔 Tidak menemukan **${keyword}**`
+
+`💔 Player **${keyword}** tidak ditemukan`
+
 );
 
+
 }
+
 
 
 
@@ -163,9 +178,13 @@ target.name,
 players:
 result
 
+
 }
 
+
 );
+
+
 
 
 

@@ -13,22 +13,8 @@ getServer
 
 
 
-
-const serverList={
-
-
-gprp:{
-
-name:
-"Garuda Prime Roleplay",
-
-cfx:
-"vgaqm5"
-
-}
-
-
-};
+const serverList =
+require("../utils/serverlist");
 
 
 
@@ -37,22 +23,33 @@ cfx:
 module.exports={
 
 
+
 name:"allplayer",
+
+
 
 
 async execute(message,args){
 
 
 
-const alias=args[0];
+const alias =
+args[0];
 
 
 
-if(!alias)
+
+
+if(!alias){
+
 
 return message.reply(
-".allplayer <server>"
+"💗 Gunakan `.allplayer <server>`"
 );
+
+
+}
+
 
 
 
@@ -65,46 +62,65 @@ alias.toLowerCase()
 
 
 
-if(!target)
+
+
+if(!target){
+
+
+let list =
+Object.keys(serverList)
+.join(", ");
+
+
 
 return message.reply(
-"Server tidak tersedia"
+
+`
+💔 Server tidak ditemukan
+
+Server tersedia:
+\`${list}\`
+`
+
 );
+
+
+}
+
+
 
 
 
 
 const server =
 await getServer(
-target.cfx
+
+target.server
+
 );
 
 
 
 
-if(!server)
+
+if(!server){
+
 
 return message.reply(
-"Server offline"
+"💔 Server offline"
+
 );
 
 
-
-
-let players =
-server.players || [];
+}
 
 
 
 
-players.sort(
-(a,b)=>a.id-b.id
-);
 
 
 
-
-playerPagination(
+await playerPagination(
 
 message,
 
@@ -115,7 +131,7 @@ target.name,
 
 
 players:
-players
+server.players || []
 
 
 }
