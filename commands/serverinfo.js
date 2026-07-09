@@ -8,8 +8,7 @@ EmbedBuilder
 
 const {
 
-getServer,
-getServerIP
+getServer
 
 }=require("../utils/fivem");
 
@@ -31,10 +30,7 @@ name:"serverinfo",
 
 
 
-
 async execute(message,args){
-
-
 
 
 
@@ -48,13 +44,9 @@ args[0];
 if(!alias){
 
 
-
 return message.reply(
-
 "💗 Gunakan `.serverinfo <server>`"
-
 );
-
 
 
 }
@@ -65,12 +57,9 @@ return message.reply(
 
 
 
-
 const target =
 serverList[
-
 alias.toLowerCase()
-
 ];
 
 
@@ -83,15 +72,9 @@ if(!target){
 
 
 
-
-
 const list =
-
 Object.keys(serverList)
-
 .join(", ");
-
-
 
 
 
@@ -108,7 +91,6 @@ Server tersedia:
 );
 
 
-
 }
 
 
@@ -118,15 +100,10 @@ Server tersedia:
 
 
 
-
 const server =
-
 await getServer(
-
 target.server
-
 );
-
 
 
 
@@ -139,11 +116,8 @@ if(!server){
 
 
 return message.reply(
-
 "💔 Server offline"
-
 );
-
 
 
 }
@@ -156,29 +130,7 @@ return message.reply(
 
 
 
-
-const ip =
-
-await getServerIP(
-
-target.server
-
-)
-
-||
-
-"Hidden";
-
-
-
-
-
-
-
-
-
 const embed =
-
 new EmbedBuilder()
 
 
@@ -191,7 +143,7 @@ new EmbedBuilder()
 
 name:
 
-"💗 PETUAH BISU SERVER 💗",
+"🌸 PETUAH BISU Finder",
 
 
 
@@ -200,8 +152,47 @@ iconURL:
 message.client.user.displayAvatarURL()
 
 
-
 })
+
+
+
+
+
+
+
+
+.setTitle(
+
+`🌸 ${target.name}`
+
+)
+
+
+
+
+
+
+
+
+.setDescription(
+
+`
+
+━━━━━━━━━━━━━━
+
+
+💗 **Server sedang aktif**
+
+
+✨ Informasi server berhasil ditemukan
+
+
+`
+
+)
+
+
+
 
 
 
@@ -219,42 +210,101 @@ message.client.user.displayAvatarURL()
 
 
 
-.setDescription(
-
-`
-
-🌸 **${target.name}**
-
-
-━━━━━━━━━━━━
-
-
-🟢 **Status**
-
-\`ONLINE\`
 
 
 
-👥 **Players**
-
-\`${server.clients}/${server.sv_maxclients}\`
+.addFields(
 
 
 
-🔗 **Connect**
-
-\`cfx.re/join/${target.server}\`
 
 
 
-📡 **Endpoint**
-
-\`${ip}\`
+{
 
 
-`
+name:
+
+"🟢 Status",
+
+
+
+value:
+
+"```ONLINE```",
+
+
+
+inline:true
+
+
+},
+
+
+
+
+
+
+
+
+{
+
+
+name:
+
+"👥 Players",
+
+
+
+value:
+
+"```"+
+`${server.clients}/${server.sv_maxclients}`
++"```",
+
+
+
+inline:true
+
+
+},
+
+
+
+
+
+
+
+{
+
+
+name:
+
+"🔗 Connect",
+
+
+
+value:
+
+"```"+
+`cfx.re/join/${target.server}`
++"```"
+
+
+
+}
+
+
+
+
+
+
 
 )
+
+
+
+
 
 
 
@@ -264,12 +314,16 @@ message.client.user.displayAvatarURL()
 .setFooter({
 
 
+
 text:
 
-"PETUAH BISU FINDER 💗"
+"🌸 PETUAH BISU Sakura System"
+
 
 
 })
+
+
 
 
 
@@ -285,11 +339,12 @@ text:
 
 
 
+
+
+
 message.reply({
 
-
 embeds:[embed]
-
 
 });
 
@@ -297,9 +352,9 @@ embeds:[embed]
 
 
 
-}
-
-
-
 
 }
+
+
+
+};
