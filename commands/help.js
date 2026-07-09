@@ -97,6 +97,9 @@ message.client.user.displayAvatarURL()
 
 💗 **SAVED SERVER**
 
+\`.serverinfo <server>\`
+↳ Info server tersimpan
+
 \`.allplayer <server>\`
 ↳ List semua player
 
