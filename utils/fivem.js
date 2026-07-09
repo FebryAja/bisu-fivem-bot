@@ -1,112 +1,255 @@
 const axios = require("axios");
 
 
-// ===============================
-// GET SERVER DATA
-// ===============================
+
+// ==============================
+// CLEAN CFX INPUT
+// ==============================
+
+function cleanCode(input){
+
+
+    if(!input)
+    return null;
+
+
+
+    return input
+
+    .replace("https://cfx.re/join/","")
+    .replace("http://cfx.re/join/","")
+    .replace("cfx.re/join/","")
+    .trim();
+
+
+}
+
+
+
+
+
+
+// ==============================
+// GET SERVER FROM CFX
+// ==============================
+
 
 async function getServer(input){
 
 
-    try{
+try{
 
 
-        // ambil kode CFX saja
-        const code = input
-
-        .replace("https://cfx.re/join/","")
-        .replace("http://cfx.re/join/","")
-        .replace("cfx.re/join/","")
-        .trim();
+    const code =
+    cleanCode(input);
 
 
 
-        const url =
-
-        `https://frontend.cfx-services.net/api/servers/single/${code}`;
+    if(!code)
+    return null;
 
 
 
 
-        const response = await axios.get(
+
+    let url;
+
+
+
+    // JIKA INPUT IP:PORT
+
+    if(
+        code.includes(":")
+    ){
+
+
+        url =
+        `http://${code}/players.json`;
+
+
+        const playersResponse =
+        await axios.get(
             url,
             {
-
-
-                headers:{
-
-
-                    "User-Agent":
-
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-
-
-
-                    "Accept":
-
-                    "application/json",
-
-
-
-                    "Origin":
-
-                    "https://servers.fivem.net"
-
-
-                },
-
-
-                timeout:15000
-
+                timeout:10000
             }
         );
 
 
 
+        const infoResponse =
+        await axios.get(
 
+            `http://${code}/info.json`,
 
-        if(
-
-            !response.data ||
-
-            !response.data.Data
-
-        ){
-
-            return null;
-
-        }
-
-
-
-
-
-        return response.data.Data;
-
-
-
-
-
-    }catch(error){
-
-
-
-        console.log(
-
-            "FiveM API Error:",
-
-            error.response?.status ||
-
-            error.message
+            {
+                timeout:10000
+            }
 
         );
 
 
 
+
+
+
+        return {
+
+
+            hostname:
+
+            infoResponse.data.vars?.sv_projectName
+            ||
+            infoResponse.data.server
+            ||
+            "Unknown Server",
+
+
+
+            players:
+
+            playersResponse.data
+            ||
+            [],
+
+
+
+            clients:
+
+            playersResponse.data.length,
+
+
+
+            sv_maxclients:
+
+            infoResponse.data.vars?.sv_maxClients
+            ||
+            "?"
+
+
+
+        };
+
+
+
+    }
+
+
+
+
+
+
+
+
+    // JIKA INPUT CFX CODE
+
+
+    const response =
+
+    await axios.get(
+
+
+        `https://frontend.cfx-services.net/api/servers/single/${code}`,
+
+
+        {
+
+
+            headers:{
+
+
+                "User-Agent":
+
+                "Mozilla/5.0",
+
+
+
+                "Accept":
+
+                "application/json"
+
+
+            },
+
+
+            timeout:15000
+
+
+        }
+
+
+    );
+
+
+
+
+
+
+
+
+    if(
+
+        !response.data ||
+
+        !response.data.Data
+
+    ){
+
+
         return null;
 
 
     }
+
+
+
+
+
+
+
+
+    return response.data.Data;
+
+
+
+
+
+
+
+
+
+}catch(error){
+
+
+
+
+
+console.log(
+
+`
+======================
+
+FIVEM API ERROR
+
+${error.message}
+
+======================
+`
+
+);
+
+
+
+
+
+return null;
+
+
+
+
+}
+
+
 
 
 }
@@ -116,31 +259,36 @@ async function getServer(input){
 
 
 
-// ===============================
-// GET PLAYER LIST
-// ===============================
+
+
+
+// ==============================
+// GET PLAYERS ONLY
+// ==============================
 
 
 async function getPlayers(code){
 
 
-    const server =
 
-    await getServer(code);
+const server =
 
-
-
-
-    if(!server){
-
-        return null;
-
-    }
+await getServer(code);
 
 
 
 
-    return server.players || [];
+if(!server)
+
+return [];
+
+
+
+
+
+return server.players || [];
+
+
 
 
 }
@@ -151,9 +299,82 @@ async function getPlayers(code){
 
 
 
+
+
+// ==============================
+// GET SERVER IP
+// ==============================
+
+
+async function getServerIP(code){
+
+
+
+const server =
+
+await getServer(code);
+
+
+
+
+if(!server)
+
+return null;
+
+
+
+
+
+
+if(
+
+server.connectEndPoints &&
+
+server.connectEndPoints.length > 0
+
+){
+
+
+return server.connectEndPoints[0];
+
+
+}
+
+
+
+
+
+return null;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+// ==============================
+// EXPORT
+// ==============================
+
+
 module.exports={
 
+
     getServer,
-    getPlayers
+
+
+    getPlayers,
+
+
+    getServerIP
+
 
 };
