@@ -1,15 +1,22 @@
 const {
-EmbedBuilder
-}=require("discord.js");
+
+playerPagination
+
+}=require("../utils/pagination");
 
 
 const {
+
 getServer
+
 }=require("../utils/fivem");
 
 
 
+
+
 module.exports={
+
 
 name:"find",
 
@@ -19,7 +26,9 @@ async execute(message,args){
 
 
 
-const code=args[0];
+const code =
+args[0];
+
 
 
 const keyword =
@@ -30,22 +39,43 @@ args.slice(1)
 
 
 
+if(!code || !keyword){
+
+return message.reply(
+"💗 Gunakan `.find <cfx> <nama>`"
+);
+
+}
+
+
+
+
+
 const server =
 await getServer(code);
 
 
 
-if(!server)
+
+if(!server){
 
 return message.reply(
-"Server tidak ditemukan"
+"💔 Server tidak ditemukan"
 );
+
+}
+
+
+
+
+const players =
+server.players || [];
 
 
 
 
 const result =
-server.players.filter(p=>
+players.filter(p=>
 
 p.name
 .toLowerCase()
@@ -56,87 +86,42 @@ p.name
 
 
 
-let list =
-result.slice(0,20)
 
-.map(p=>
+if(result.length===0){
 
-`💗 **[${p.id}] ${p.name}**
-Ping: \`${p.ping}ms\``
+return message.reply(
+`💔 Player **${keyword}** tidak ditemukan`
+);
 
-)
-
-.join("\n\n");
-
-
-
-
-
-let embed =
-new EmbedBuilder()
-
-
-.setTitle(
-"💗 PETUAH BISU FINDER 💗"
-)
-
-
-.setColor(
-"#ff77cc"
-)
-
-
-.addFields(
-
-{
-name:"Server",
-value:
-server.hostname
-},
-
-
-{
-name:"Search",
-value:
-keyword,
-
-inline:true
-},
-
-
-{
-name:"Found",
-value:
-result.length+" Player",
-inline:true
-},
-
-
-{
-name:"Result",
-value:list || "Kosong"
 }
 
 
-)
-
-
-.setFooter({
-
-text:
-"PETUAH BISU 💗"
-
-});
 
 
 
-message.reply({
 
-embeds:[embed]
+await playerPagination(
 
-});
+message,
+
+{
+
+server:
+server.hostname,
+
+
+players:
+result
+
+}
+
+);
+
+
+
 
 
 }
+
 
 }
