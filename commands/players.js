@@ -1,8 +1,8 @@
 const {
 
-EmbedBuilder
+playerPagination
 
-}=require("discord.js");
+}=require("../utils/pagination");
 
 
 const {
@@ -19,118 +19,64 @@ module.exports={
 name:"players",
 
 
-
 async execute(message,args){
 
 
-let code=args[0];
+
+const code=args[0];
 
 
-let server =
+
+if(!code)
+
+return message.reply(
+"Gunakan `.players <cfx>`"
+);
+
+
+
+
+const server =
 await getServer(code);
 
 
 
-if(!server){
+if(!server)
 
 return message.reply(
 "💔 Server tidak ditemukan"
 );
 
-}
 
 
 
+let players =
+server.players || [];
 
 
-let list =
 
-server.players
-
-.slice(0,40)
-
-.map(p=>{
-
-
-return (
-
-`🌸 **${p.id}**
-♡ ${p.name}
-`
-
+players.sort(
+(a,b)=>a.id-b.id
 );
 
 
-})
 
-.join("");
+playerPagination(
 
-
-
-
-
-
-
-let embed =
-new EmbedBuilder()
-
-
-.setTitle(
-"🌸 ONLINE PLAYERS"
-)
-
-
-.setDescription(
-
-`
-♡ **${server.hostname}**
-
-━━━━━━━━━━━━━━
-
-💗 Total Player:
-\`${server.players.length} Online\`
-`
-
-)
-
-
-.setColor(
-"#ff77cc"
-)
-
-
-.addFields(
+message,
 
 {
 
-name:"🌸 Player List",
+server:
+server.hostname,
 
-value:list
+
+players:
+players
 
 }
 
-)
-
-
-.setFooter({
-
-text:
-"Tetsu Sakura Finder"
-
-})
-
-
-.setTimestamp();
-
-
-
-
-
-message.reply({
-
-embeds:[embed]
-
-});
+);
 
 
 
