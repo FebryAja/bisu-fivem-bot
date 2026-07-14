@@ -44,7 +44,7 @@ if(!alias){
 
 
 return message.reply(
-"💗 Gunakan `.allplayer <server>`"
+"☠️ Gunakan `.allplayer <server>`"
 );
 
 

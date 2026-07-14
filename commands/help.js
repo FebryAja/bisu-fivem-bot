@@ -49,7 +49,7 @@ new EmbedBuilder()
 
 name:
 
-"💗 PETUAH BISU 💗",
+"☠️ NENEK MOYANG UMC x DRMC x HSK ☠️",
 
 
 iconURL:
@@ -95,7 +95,7 @@ message.client.user.displayAvatarURL()
 
 
 
-💗 **SAVED SERVER**
+☠️ **SAVED SERVER**
 
 \`.serverinfo <server>\`
 ↳ Info server tersimpan
@@ -127,7 +127,7 @@ message.client.user.displayAvatarURL()
 
 text:
 
-"PETUAH BISU FINDER 💗"
+"NENEK MOYANG UMC x DRMC x HSK FINDER ☠️"
 
 })
 

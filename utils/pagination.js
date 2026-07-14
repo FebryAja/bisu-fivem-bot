@@ -43,7 +43,7 @@ page*limit+limit
 
 .map(p=>
 
-`💗 **[${p.id}] ${clean(p.name)}**
+`☠️ **[${p.id}] ${clean(p.name)}**
 \`${p.ping || 0}ms\``
 
 )
@@ -56,7 +56,7 @@ page*limit+limit
 return new EmbedBuilder()
 
 .setTitle(
-"💗 PETUAH BISU 💗"
+"☠️ NENEK MOYANG UMC x DRMC x HSK ☠️"
 )
 
 .setColor(
@@ -78,7 +78,7 @@ ${list}
 )
 
 .setFooter({
-text:"PETUAH BISU FINDER"
+text:"NENEK MOYANG UMC x DRMC x HSK FINDER"
 });
 
 }
