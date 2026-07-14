@@ -1,1 +1,0 @@
-require("dotenv").config({path:"./config.env"});console.log("jalankan register command sesuai token");
