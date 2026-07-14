@@ -52,7 +52,7 @@ command
 
 
 console.log(
-`💗 ${command.name} Loaded`
+`💗☠️ ${command.name} Loaded`
 );
 
 
@@ -67,7 +67,7 @@ client.once("ready",()=>{
 console.log("====================");
 
 console.log(
-`💗 PETUAH BISU ONLINE 💗`
+`💗 PETUAH BISU ONLINE 💗 — ☠️ NENEK MOYANG UMC x DRMC x HSK ONLINE ☠️`
 );
 
 console.log("====================");
@@ -79,7 +79,7 @@ client.user.setPresence({
 activities:[{
 
 name:
-".help | PETUAH BISU 💗",
+".help | PETUAH BISU 💗 — UMC • DRMC • HSK",
 
 type:0
 

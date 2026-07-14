@@ -52,7 +52,7 @@ if(!alias || !keyword){
 
 
 return message.reply(
-"💗 Gunakan `.search <server> <nama>`"
+"☠️ Gunakan `.search <server> <nama>`"
 );
 
 

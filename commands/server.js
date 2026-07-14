@@ -68,7 +68,7 @@ message.client.user.displayAvatarURL()
 `
 ━━━━━━━━━━━━━━
 
-💗 **Server sedang aktif**
+☠️ **Server sedang aktif**
 
 ✨ Informasi server berhasil ditemukan
 `

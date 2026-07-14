@@ -45,7 +45,7 @@ if(!alias){
 
 
 return message.reply(
-"💗 Gunakan `.serverinfo <server>`"
+"☠️ Gunakan `.serverinfo <server>`"
 );
 
 
@@ -143,7 +143,7 @@ new EmbedBuilder()
 
 name:
 
-"🌸 PETUAH BISU Finder",
+"🌸 NENEK MOYANG UMC x DRMC x HSK Finder",
 
 
 
@@ -181,7 +181,7 @@ message.client.user.displayAvatarURL()
 ━━━━━━━━━━━━━━
 
 
-💗 **Server sedang aktif**
+☠️ **Server sedang aktif**
 
 
 ✨ Informasi server berhasil ditemukan
@@ -317,7 +317,7 @@ value:
 
 text:
 
-"🌸 PETUAH BISU Sakura System"
+"🌸 NENEK MOYANG UMC x DRMC x HSK Sakura System"
 
 
 

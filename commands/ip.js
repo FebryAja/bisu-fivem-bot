@@ -100,7 +100,7 @@ new EmbedBuilder()
 
 
 .setTitle(
-"💗 SERVER IP FINDER 💗"
+"☠️ SERVER IP FINDER ☠️"
 )
 
 
@@ -132,7 +132,7 @@ value:
 .setFooter({
 
 text:
-"PETUAH BISU 💗"
+"NENEK MOYANG UMC x DRMC x HSK ☠️"
 
 });
 

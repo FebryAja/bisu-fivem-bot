@@ -42,7 +42,7 @@ args.slice(1)
 if(!code || !keyword){
 
 return message.reply(
-"💗 Gunakan `.find <cfx> <nama>`"
+"☠️ Gunakan `.find <cfx> <nama>`"
 );
 
 }
